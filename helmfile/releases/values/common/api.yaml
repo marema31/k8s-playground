@@ -1,0 +1,14 @@
+#imagePullSecrets: [name: "regcred"]
+
+image:
+  pullPolicy: Always
+  port: 5000
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 5000
+
+probe:
+  liveness: "/health"
+  readiness: "/health"

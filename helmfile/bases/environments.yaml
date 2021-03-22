@@ -1,0 +1,21 @@
+---
+environments:
+  python-dev:
+    values:
+      - deployEnv: dev
+      - kind: python
+
+  python-prod:
+    values:
+      - deployEnv: prod
+      - kind: python
+
+  gunicorn-dev:
+    values:
+      - deployEnv: dev
+      - kind: gunicorn
+
+  gunicorn-prod:
+    values:
+      - deployEnv: prod
+      - kind: gunicorn

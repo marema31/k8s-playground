@@ -1,0 +1,70 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gunicorn
+  labels:
+    app: gunicorn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gunicorn
+  template:
+    metadata:
+      labels:
+        app: gunicorn
+    spec:
+      containers:
+        - name: gunicorn
+          image: eqtoqjwe.gra5.container-registry.ovh.net/private/loadtest:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: G_BACKLOG
+              value: "2048"
+            - name: G_TIMEOUT
+              value: "0"
+            - name: WAIT_TIME
+              value: "30"
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gunicorn-svc
+  labels:
+    app: gunicorn
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 5000
+      protocol: TCP
+  selector:
+    app: gunicorn
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gunicorn-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "620s"
+    ingress.kubernetes.io/whitelist-source-range: "51.91.23.43/32"
+
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: gunicorn.marc.k8s.carmier.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gunicorn-svc
+                port:
+                  number: 80
+

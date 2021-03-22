@@ -1,0 +1,13 @@
+
+
+
+gunicorn sans wait:
+141542 requests in 9m51.191173373s, 18.33MB read
+Requests/sec:           239.42
+Transfer/sec:           31.75KB
+Avg Req Time:           334.143179ms
+Fastest Request:        64.412141ms
+Slowest Request:        1.474702841s
+Number of Errors:       681
+
+gunicor avec wait:

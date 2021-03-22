@@ -1,0 +1,17 @@
+---
+bases:
+  - "../bases/repos.yaml"
+  - "../bases/environments.yaml"
+---
+releases:
+  - name: "api-{{ .Environment.Name}}"
+    namespace: "async-marc"
+    createNamespace: true
+    chart: "../charts/app"
+    labels:
+      app: "api"
+      env: "{{.Environment.Name}}"
+    values:
+      - "values/common/api.yaml"
+      - "values/{{.Values.kind}}/api.yaml"
+      - "values/{{.Values.deployEnv}}/api.yaml"

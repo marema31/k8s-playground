@@ -1,0 +1,10 @@
+# For traefik 1.7 (current version in k3s)
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  beta: true
+
+# For traefik 2
+# ingressroute:
+#   enabled: true
