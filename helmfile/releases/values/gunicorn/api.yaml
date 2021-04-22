@@ -6,7 +6,7 @@ image:
 
 ingress:
   hosts:
-    - host: api.python.k3d.lan.carmier.fr
+    - host: api.gunicorn.k3d.lan.carmier.fr
       paths:
         - path: /
           pathType: Prefix

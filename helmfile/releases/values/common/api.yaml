@@ -5,7 +5,7 @@ image:
   port: 5000
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
   targetPort: 5000
 
