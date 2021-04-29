@@ -3,7 +3,7 @@ import os
 from flask import Flask
 
 app = Flask(__name__)
-wait_time = os.environ.get("WAIT_TIME", 60 * 10)
+wait_time = int(os.environ.get("WAIT_TIME", 60 * 10))
 print(f"Wait time: {wait_time}")
 
 

@@ -2,7 +2,7 @@ image:
   #repository: eqtoqjwe.gra5.container-registry.ovh.net/private/loadtest
   repository: k3d-registry.k3d.lan.carmier.fr:5000/loadtest
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "1.1"
 
 ingress:
   hosts:
@@ -14,7 +14,7 @@ ingress:
 cmd: ["api"]
 envs:
   - name: "WAIT_TIME"
-    value: "30"
+    value: 25
   - name: G_BACKLOG
     value: "2048"
   - name: G_TIMEOUT

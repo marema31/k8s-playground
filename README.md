@@ -11,6 +11,16 @@ Delete the cluster
 k3d cluster delete newcluster
 ```
 
+## Application container
+
+Build and push the image to k3d registry
+_Note_: Due to HTTPS/HTTP limitation we need to push to localhost but the k8s will refer with the name provided on k3d spawn.
+
+```bash
+docker build -t localhost:5000/loadtest .
+docker push localhost:5000/loadtest
+```
+
 ## Helmfile
 Start the application
 ```bash
@@ -21,3 +31,8 @@ Delete the application
 ```bash
 helmfile --environment python-dev   delete
 ```
+
+
+## Notes
+### Add registry credentials as secrets (if needed)
+kubectl create secret docker-registry regcred --docker-server=myregistry --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>

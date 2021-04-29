@@ -19,7 +19,7 @@ spec:
           image: eqtoqjwe.gra5.container-registry.ovh.net/private/loadtest:latest
           env:
             - name: WAIT_TIME
-              value: "30"
+              value: 30
           command: ["main"]
           ports:
             - containerPort: 5000
@@ -62,4 +62,3 @@ spec:
                 name: python-svc
                 port:
                   number: 80
-
