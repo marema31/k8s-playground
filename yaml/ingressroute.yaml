@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app: api
+  name: api-ing
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: Host(`api.k3d.lan.carmier.fr`) && PathPrefix(`/`)
+    services:
+    - name: api-python
+      port: 80

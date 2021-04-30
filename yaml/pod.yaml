@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: api
+  name: api-python
+spec:
+  containers:
+    - name: app
+      image: k3d-registry.k3d.lan.carmier.fr:5000/loadtest:1.1
+      imagePullPolicy: Always
+      args:
+        - main
+      env:
+        - name: WAIT_TIME
+          value: "30"
+      ports:
+        - containerPort: 5000
+          name: httpapi
+          protocol: TCP

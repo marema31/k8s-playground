@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api-python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-pod
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: api-pod
+    spec:
+      containers:
+        - name: app
+          image: k3d-registry.k3d.lan.carmier.fr:5000/loadtest:1.1
+          imagePullPolicy: Always
+          args:
+            - main
+          env:
+            - name: WAIT_TIME
+              value: "30"
+          ports:
+            - containerPort: 5000
+              name: httpapi
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: httpapi
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: httpapi
+              scheme: HTTP
